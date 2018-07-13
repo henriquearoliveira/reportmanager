@@ -1,0 +1,13 @@
+package br.com.reportmanager.report;
+
+import java.util.Map;
+
+public class Report {
+	
+	private Map<String, Object> params;
+	
+	
+	
+	
+
+}

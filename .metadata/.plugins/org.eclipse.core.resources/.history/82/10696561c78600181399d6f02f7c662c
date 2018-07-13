@@ -1,0 +1,49 @@
+package br.com.reportmanager.report.components;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public enum PathReports {
+
+	FECHAMENTO_CAIXA(new String[] { "FechamentoDeCaixa/FechamentoDeCaixa", "FechamentoDeCaixa/TabelaServicoVeiculo",
+			"FechamentoDeCaixa/TabelaLancamento" }), FECHAMENTO_CAIXA_PERIODO(
+					new String[] { "FechamentoDeCaixa_Periodo/FechamentoDeCaixa",
+							"FechamentoDeCaixa_Periodo/TabelaServicoVeiculo",
+							"FechamentoDeCaixa_Periodo/TabelaLancamento" });
+
+	public String[] description;
+
+	PathReports(String[] description) {
+		this.description = description;
+	}
+
+	// DA PRA FAZER COM CASE
+	public List<String> getRelatorios(PathReports relatorios) {
+
+		if (relatorios == null)
+			return null;
+
+		List<String> rela = new LinkedList<>();
+
+		for (PathReports caminho : PathReports.values()) {
+
+			if (relatorios.equals(caminho)) {
+
+				for (String descricao : relatorios.getDescription()) {
+
+					rela.add(descricao);
+
+				}
+
+			}
+
+		}
+
+		return rela;
+
+	}
+
+	public String[] getDescription() {
+		return description;
+	}
+}
