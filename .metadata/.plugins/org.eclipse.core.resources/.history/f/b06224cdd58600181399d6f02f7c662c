@@ -29,7 +29,7 @@ public class ReportResource {
 		// @RequestBody Report report
 
 		Map<String, Object> param = new HashMap<>();
-		param.put("idFluxoDeCaixa", new Long(13l));
+		param.put("id", new Long(13l));
 
 		Report report = new Report();
 		report.setParams(param);

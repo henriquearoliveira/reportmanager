@@ -28,7 +28,7 @@ public class ReportService {
 		// RECUPERA O ARQUIVO DENTRO DO FTP PELO NOME QUE VEIO NOS REPORT
 		// TODO
 
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://mysql472.umbler.com:41890/lavacar",
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lavacar",
 				"lavacar", "snowlifes");) {
 
 			try {
