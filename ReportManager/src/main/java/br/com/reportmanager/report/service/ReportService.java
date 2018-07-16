@@ -1,5 +1,6 @@
 package br.com.reportmanager.report.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,8 +29,8 @@ public class ReportService {
 		// RECUPERA O ARQUIVO DENTRO DO FTP PELO NOME QUE VEIO NOS REPORT
 		// TODO
 
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lavacar",
-				"lavacar", "snowlifes");) {
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lavacar", "lavacar",
+				"snowlifes");) {
 
 			try {
 				print = JasperFillManager.fillReport(folderReports + "FechamentoDeCaixa.jasper", report.getParams(),
@@ -43,16 +44,16 @@ public class ReportService {
 			System.out.println("ERRO NA CONEXÃO");
 			e1.printStackTrace();
 		}
-		
+
 		if (print.getPages().isEmpty())
 			System.out.println("VAZIOOOO");
-		
+
 		try {
 			JasperExportManager.exportReportToPdfFile(print, folderReports + "relatorio.pdf");
 		} catch (JRException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		// File file = new File(folderReports + "relatorio.pdf");
 
 		Path path = Paths.get(folderReports + "relatorio.pdf");
@@ -66,8 +67,19 @@ public class ReportService {
 			e.printStackTrace();
 		}
 
+		deleteFiles();
+
 		return bytes;
 
+	}
+
+	private void deleteFiles() {
+		try {
+			Files.walk(Paths.get(folderReports)).map(Path::toFile).forEach(File::delete);
+		} catch (IOException e) {
+			System.out.println("DEU RUIM NA EXCLUSÃO.");
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,0 +1,91 @@
+package br.com.reportmanager.report.service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.springframework.stereotype.Service;
+
+import br.com.reportmanager.report.Report;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
+@Service
+public class ReportService {
+
+	private final String folderReports = "src/main/resources/reports/";
+
+	private JasperPrint print = null;
+
+	public byte[] buildReport(Report report) {
+
+		// RECUPERA O ARQUIVO DENTRO DO FTP PELO NOME QUE VEIO NOS REPORT
+		// TODO
+
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/lavacar",
+				"lavacar", "snowlifes");) {
+
+			try {
+				print = JasperFillManager.fillReport(folderReports + "FechamentoDeCaixa.jasper", report.getParams(),
+						connection);
+			} catch (JRException e) {
+				System.out.println("ERRO NO PREENCHIMENTO DO RELATÓRIO");
+				e.printStackTrace();
+			}
+
+		} catch (SQLException e1) {
+			System.out.println("ERRO NA CONEXÃO");
+			e1.printStackTrace();
+		}
+		
+		if (print.getPages().isEmpty())
+			System.out.println("VAZIOOOO");
+		
+		try {
+			JasperExportManager.exportReportToPdfFile(print, folderReports + "relatorio.pdf");
+		} catch (JRException e1) {
+			e1.printStackTrace();
+		}
+		
+		// File file = new File(folderReports + "relatorio.pdf");
+
+		Path path = Paths.get(folderReports + "relatorio.pdf");
+
+		byte[] bytes = null;
+
+		try {
+			bytes = Files.readAllBytes(path);
+		} catch (IOException e) {
+			System.out.println("ERRO EM TRANSOFRMAR O ARQUIVO PARA BYTES");
+			e.printStackTrace();
+		}
+		
+		deleteFiles();
+
+		return bytes;
+
+	}
+
+	private void deleteFiles() {
+		
+		try {
+			Files.walk(Paths.get(folderReports)).forEach(t -> {
+				try {
+					Files.delete(t);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+}
