@@ -2,13 +2,29 @@ package br.com.reportmanager.report;
 
 import java.util.Map;
 
-import br.com.reportmanager.report.components.PathReports;
-
 public class Report {
+
+	private Database database;
+
+	private FTP ftp;
 
 	private Map<String, Object> params;
 
-	private PathReports pathReports;
+	public Database getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(Database database) {
+		this.database = database;
+	}
+
+	public FTP getFtp() {
+		return ftp;
+	}
+
+	public void setFtp(FTP ftp) {
+		this.ftp = ftp;
+	}
 
 	public Map<String, Object> getParams() {
 		return params;
@@ -16,14 +32,6 @@ public class Report {
 
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
-	}
-
-	public PathReports getPathReports() {
-		return pathReports;
-	}
-
-	public void setPathReports(PathReports pathReports) {
-		this.pathReports = pathReports;
 	}
 
 }
