@@ -10,6 +10,16 @@ public class Report {
 
 	private Map<String, Object> params;
 
+	public Report(Database database, FTP ftp, Map<String, Object> params) {
+		this.database = database;
+		this.ftp = ftp;
+		this.params = params;
+	}
+	
+	public Report() {
+		
+	}
+
 	public Database getDatabase() {
 		return database;
 	}

@@ -5,7 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +20,9 @@ public class ReportResource {
 	@Autowired
 	private ReportService service;
 
-	@GetMapping
+	@PostMapping
 	public ResponseEntity<byte[]> testando(@RequestBody Report report) {
-
-		/*Map<String, Object> param = new HashMap<>();
-		param.put("idFluxoDeCaixa", new Long(13l));
-
-		Report report = new Report();
-		report.setParams(param);
-		report.setPathReports(PathReports.FECHAMENTO_CAIXA);*/
-
+		
 		byte[] pdfReport = service.buildReport(report);
 
 		HttpHeaders header = new HttpHeaders();

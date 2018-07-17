@@ -1,0 +1,9 @@
+package br.com.reportmanager.report.components.ftp;
+
+public interface FTPConnection {
+
+    boolean download(String arquivo, Ftp ftp);
+
+    boolean  upload();
+
+}

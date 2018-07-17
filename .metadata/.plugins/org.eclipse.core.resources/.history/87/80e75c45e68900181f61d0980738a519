@@ -1,0 +1,14 @@
+package br.com.reportmanager.report.components.ftp;
+
+public class FTPRetrieveFile extends FTPAbstract {
+
+    @Override
+    public boolean download(String arquivo) {
+        return downloadArquivo(arquivo);
+    }
+
+    @Override
+    public boolean upload() {
+        return false;
+    }
+}

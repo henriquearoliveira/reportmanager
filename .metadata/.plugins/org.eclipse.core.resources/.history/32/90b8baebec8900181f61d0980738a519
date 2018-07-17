@@ -1,0 +1,63 @@
+package br.com.reportmanager.report.resource;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.reportmanager.report.Database;
+import br.com.reportmanager.report.FTP;
+import br.com.reportmanager.report.Report;
+import br.com.reportmanager.report.components.PathReports;
+import br.com.reportmanager.report.service.ReportService;
+
+@RestController
+@RequestMapping("/report")
+public class ReportResource {
+
+	@Autowired
+	private ReportService service;
+
+	@GetMapping
+	public ResponseEntity<byte[]> testando(/*@RequestBody Report report*/) {
+		
+		Database database = new Database();
+		database.setUrlConnection("");
+		database.setUsername("");
+		database.setPassword("");
+		
+		PathReports pathReports = PathReports.FECHAMENTO_CAIXA;
+		pathReports.setDescription(new String[] { "FechamentoDeCaixa/FechamentoDeCaixa.jasper","FechamentoDeCaixa/TabelaServicoVeiculo.jasper", "FechamentoDeCaixa/TabelaLancamento.jasper" });
+		
+		FTP ftp = new FTP();
+		ftp.setHostFTP("");
+		ftp.setPort(21);
+		ftp.setPathReports(pathReports);
+		ftp.setUsername("");
+		ftp.setPassword("");
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("idFluxoDeCaixa", 20);
+		
+		Report report = new Report(database, ftp, params);
+
+		byte[] pdfReport = service.buildReport(report);
+
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "pdf"));
+		header.set("Content-Disposition", "inline; filename=report.pdf");
+		header.setContentLength(pdfReport == null ? 0 : pdfReport.length);
+
+		return new ResponseEntity<byte[]>(pdfReport, header, HttpStatus.OK);
+
+	}
+
+}

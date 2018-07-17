@@ -5,15 +5,13 @@ import java.util.List;
 
 public enum PathReports {
 
-	FECHAMENTO_CAIXA(new String[] { "FechamentoDeCaixa/FechamentoDeCaixa", "FechamentoDeCaixa/TabelaServicoVeiculo",
-			"FechamentoDeCaixa/TabelaLancamento" }),
-	
-	FECHAMENTO_CAIXA_PERIODO(
-			new String[] { "FechamentoDeCaixa_Periodo/FechamentoDeCaixa",
-					"FechamentoDeCaixa_Periodo/TabelaServicoVeiculo",
-							"FechamentoDeCaixa_Periodo/TabelaLancamento" });
+	// "FechamentoDeCaixa/FechamentoDeCaixa.jasper","FechamentoDeCaixa/TabelaServicoVeiculo.jasper", "FechamentoDeCaixa/TabelaLancamento.jasper" 
+	FECHAMENTO_CAIXA(new String[] { }),
 
-	public String[] description;
+	// "FechamentoDeCaixa_Periodo/FechamentoDeCaixa.jasper", "FechamentoDeCaixa_Periodo/TabelaServicoVeiculo.jasper", "FechamentoDeCaixa_Periodo/TabelaLancamento.jasper"
+	FECHAMENTO_CAIXA_PERIODO(new String[] { });
+
+	private String[] description;
 
 	PathReports(String[] description) {
 		this.description = description;
@@ -47,5 +45,9 @@ public enum PathReports {
 
 	public String[] getDescription() {
 		return description;
+	}
+	
+	public void setDescription(String[] description) {
+		this.description = description;
 	}
 }
