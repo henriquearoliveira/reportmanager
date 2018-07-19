@@ -55,7 +55,7 @@ public class ReportResource {
 
 		
 
-		return ResponseEntity.ok(report);
+		return ResponseEntity.ok(null);
 	}
 
 }
