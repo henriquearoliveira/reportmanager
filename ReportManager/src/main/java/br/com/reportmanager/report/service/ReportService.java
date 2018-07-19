@@ -1,30 +1,17 @@
 package br.com.reportmanager.report.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import br.com.reportmanager.report.Report;
-import br.com.reportmanager.report.components.Tools;
-import br.com.reportmanager.report.components.ftp.FTPRetrieveFile;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 @Service
 public class ReportService {
+	
+	public byte[] buildReport(Report report) {
+		return report.getTypeFormat().download(report);
+	}
 
-	private final String folderReports = "src/main/resources/reports/";
+	/*private final String folderReports = "src/main/resources/reports/";
 
 	private JasperPrint print = null;
 
@@ -98,6 +85,6 @@ public class ReportService {
 			System.out.println("DEU RUIM NA EXCLUSÃO.");
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

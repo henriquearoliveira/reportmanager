@@ -3,18 +3,33 @@ package br.com.reportmanager.report.components;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum PathReports {
 
-	// "FechamentoDeCaixa/FechamentoDeCaixa.jasper","FechamentoDeCaixa/TabelaServicoVeiculo.jasper", "FechamentoDeCaixa/TabelaLancamento.jasper" 
-	FECHAMENTO_CAIXA(new String[] { }),
+	// "FechamentoDeCaixa/FechamentoDeCaixa.jasper","FechamentoDeCaixa/TabelaServicoVeiculo.jasper",
+	// "FechamentoDeCaixa/TabelaLancamento.jasper"
+	RELATORIO(new String[] { });
 
-	// "FechamentoDeCaixa_Periodo/FechamentoDeCaixa.jasper", "FechamentoDeCaixa_Periodo/TabelaServicoVeiculo.jasper", "FechamentoDeCaixa_Periodo/TabelaLancamento.jasper"
-	FECHAMENTO_CAIXA_PERIODO(new String[] { });
+	// "FechamentoDeCaixa_Periodo/FechamentoDeCaixa.jasper", "FechamentoDeCaixa_Periodo/TabelaServicoVeiculo.jasper",
+	// "FechamentoDeCaixa_Periodo/TabelaLancamento.jasper"
+	/*FECHAMENTO_CAIXA_PERIODO(new String[] { "FechamentoDeCaixa_Periodo/FechamentoDeCaixa.jasper",
+			"FechamentoDeCaixa_Periodo/TabelaServicoVeiculo.jasper",
+			"FechamentoDeCaixa_Periodo/TabelaLancamento.jasper" });*/
 
 	private String[] description;
 
 	PathReports(String[] description) {
 		this.description = description;
+	}
+
+	@JsonCreator
+	public static PathReports getByDescription(String[] description) {
+
+		PathReports path = PathReports.RELATORIO;
+		path.setDescription(description);
+		
+		return path;
 	}
 
 	// DA PRA FAZER COM CASE
@@ -46,8 +61,9 @@ public enum PathReports {
 	public String[] getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String[] description) {
 		this.description = description;
 	}
+
 }

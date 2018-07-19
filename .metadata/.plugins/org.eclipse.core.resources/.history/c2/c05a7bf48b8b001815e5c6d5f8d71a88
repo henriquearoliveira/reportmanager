@@ -1,0 +1,21 @@
+package br.com.reportmanager.report.manager;
+
+import java.util.Arrays;
+import java.util.List;
+
+import br.com.reportmanager.report.Report;
+import br.com.reportmanager.report.components.ftp.FTPRetrieveFile;
+
+public class ReportAbstract {
+
+	public void downloadFilesFromFTP(Report report) {
+
+		List<String> listReports = Arrays.asList(report.getFtp().getPathReports().getDescription());
+
+		listReports.forEach(e -> {
+			new FTPRetrieveFile().download(e, report.getFtp());
+		});
+
+	}
+
+}

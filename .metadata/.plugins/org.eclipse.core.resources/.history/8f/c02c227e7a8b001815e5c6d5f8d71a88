@@ -1,0 +1,140 @@
+package vc.com.prefeitura.handler;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import vc.com.prefeitura.exceptions.AcessoNaoAutorizadoException;
+import vc.com.prefeitura.exceptions.CidadeIndefinidaException;
+import vc.com.prefeitura.exceptions.DetalheErro;
+import vc.com.prefeitura.exceptions.EnderecoSemBairroException;
+import vc.com.prefeitura.exceptions.GeocodingException;
+import vc.com.prefeitura.exceptions.LocalizacaoInvalidaException;
+import vc.com.prefeitura.exceptions.ObjetoComDependenciaException;
+import vc.com.prefeitura.exceptions.ObjetoExistenteException;
+import vc.com.prefeitura.exceptions.ObjetoInexistenteException;
+import vc.com.prefeitura.exceptions.OperacaoNaoPermitidaException;
+import vc.com.prefeitura.exceptions.TipoDesconhecidoException;
+
+@ControllerAdvice
+public class ResourceExceptionHandler {
+
+	@ExceptionHandler(AcessoNaoAutorizadoException.class)
+	public ResponseEntity<DetalheErro> acessoNaoAutorizado(AcessoNaoAutorizadoException e, HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+
+	@ExceptionHandler(CidadeIndefinidaException.class)
+	public ResponseEntity<DetalheErro> cidadeNaoSuportada(CidadeIndefinidaException e, HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(423l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.LOCKED).body(erro);
+	}
+
+	public ResponseEntity<DetalheErro> enderecoSemBairro(EnderecoSemBairroException e, HttpServletRequest request){
+		
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(428l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED).body(erro);
+	}
+	
+	@ExceptionHandler(ObjetoComDependenciaException.class)
+	public ResponseEntity<DetalheErro> objetoComDependenciaException(ObjetoComDependenciaException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+	
+	@ExceptionHandler(GeocodingException.class)
+	public ResponseEntity<DetalheErro> geocoding(GeocodingException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+	
+	@ExceptionHandler(LocalizacaoInvalidaException.class)
+	public ResponseEntity<DetalheErro> geocoding(LocalizacaoInvalidaException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+
+	@ExceptionHandler(ObjetoExistenteException.class)
+	public ResponseEntity<DetalheErro> objetoExistenteException(ObjetoExistenteException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+
+	@ExceptionHandler(ObjetoInexistenteException.class)
+	public ResponseEntity<DetalheErro> objetoInexistenteException(ObjetoInexistenteException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(404l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+	
+	@ExceptionHandler(OperacaoNaoPermitidaException.class)
+	public ResponseEntity<DetalheErro> operacaoNaoPermitida(OperacaoNaoPermitidaException e, HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+
+	@ExceptionHandler(TipoDesconhecidoException.class)
+	public ResponseEntity<DetalheErro> tipoDesconhecidoException(TipoDesconhecidoException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(404l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+
+}

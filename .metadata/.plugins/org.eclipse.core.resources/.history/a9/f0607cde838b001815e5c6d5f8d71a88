@@ -1,0 +1,15 @@
+package br.com.reportmanager.report.configuration;
+
+import org.springframework.core.convert.converter.Converter;
+
+import br.com.reportmanager.report.components.PathReports;
+
+public class EnumConverter implements Converter<String, PathReports> {
+
+	@Override
+	public PathReports convert(String from) {
+		String[] description = from.split(",");
+		return PathReports.getByDescription(description);
+	}
+
+}

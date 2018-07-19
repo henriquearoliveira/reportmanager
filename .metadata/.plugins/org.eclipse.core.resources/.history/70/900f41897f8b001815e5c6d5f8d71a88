@@ -1,0 +1,5 @@
+package br.com.reportmanager.report.configuration;
+
+public class EnumConverter {
+
+}
