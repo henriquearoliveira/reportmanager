@@ -13,7 +13,7 @@ public enum TypeFormat implements ReportFormat {
 		}
 	},
 	
-	CSV {
+	HTML {
 
 		@Override
 		public byte[] download(Report report) {
