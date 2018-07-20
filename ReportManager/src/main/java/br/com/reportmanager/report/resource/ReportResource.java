@@ -78,7 +78,7 @@ public class ReportResource {
 		report.setParams(params);
 		report.setTypeFormat(TypeFormat.PDF);
 
-		return ResponseEntity.ok(report);
+		return ResponseEntity.ok(null);
 	}
 
 }
