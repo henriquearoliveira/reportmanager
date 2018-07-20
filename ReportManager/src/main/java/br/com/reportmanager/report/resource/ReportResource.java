@@ -53,7 +53,30 @@ public class ReportResource {
 	@GetMapping("/report")
 	public ResponseEntity<Report> testeReport() {
 
-		
+		Database dataBase = new Database();
+		dataBase.setUrlConnection("jdbc:mysql://mysql472.umbler.com:41890/lavacar");
+		dataBase.setUsername("lavacar");
+		dataBase.setPassword("snowlifes");
+
+		PathReports pathReports = PathReports.RELATORIO;
+		pathReports.setDescription(new String[] { "FechamentoDeCaixa/FechamentoDeCaixa.jasper",
+				"FechamentoDeCaixa/TabelaServicoVeiculo.jasper", "FechamentoDeCaixa/TabelaLancamento.jasper" });
+
+		FTP ftp = new FTP();
+		ftp.setPathReports(pathReports);
+		ftp.setHostFTP("lavacardb-cloud.umbler.net");
+		ftp.setUsername("lavacardb-cloud");
+		ftp.setPort(21);
+		ftp.setPassword(">R9*)CavrYg_a$[");
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("idFluxoDeCaixa", 43l);
+
+		Report report = new Report();
+		report.setDatabase(dataBase);
+		report.setFtp(ftp);
+		report.setParams(params);
+		report.setTypeFormat(TypeFormat.PDF);
 
 		return ResponseEntity.ok(report);
 	}
