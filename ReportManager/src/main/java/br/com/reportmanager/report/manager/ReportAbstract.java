@@ -37,11 +37,7 @@ public class ReportAbstract {
 
 	}
 
-<<<<<<< HEAD
-	protected void downloadFilesFromFTP(Report report) {
-=======
 	private void downloadFilesFromFTP(Report report) {
->>>>>>> 222c6c60576640d3606b4fde29220a0cc7058af3
 		this.report = report;
 
 		listReports = Arrays.asList(report.getFtp().getPathReports().getDescription());

@@ -42,10 +42,6 @@ public class ReportResource {
 
 	@GetMapping("/report")
 	public ResponseEntity<Report> testeReport() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 222c6c60576640d3606b4fde29220a0cc7058af3
 		return ResponseEntity.ok(null);
 	}
 
