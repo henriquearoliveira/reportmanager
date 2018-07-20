@@ -22,7 +22,7 @@ public class ReportResource {
 	private ReportService service;
 
 	@PostMapping
-	public ResponseEntity<byte[]> testando(@RequestBody Report report) {
+	public ResponseEntity<byte[]> createReport(@RequestBody Report report) {
 
 		byte[] pdfReport = service.buildReport(report);
 
@@ -37,15 +37,15 @@ public class ReportResource {
 
 	@PostMapping("/teste")
 	public ResponseEntity<Void> testeFTP(@RequestBody Report report) {
-
-		System.out.println("TYPE: " + report.getTypeFormat());
-
 		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping("/report")
 	public ResponseEntity<Report> testeReport() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 222c6c60576640d3606b4fde29220a0cc7058af3
 		return ResponseEntity.ok(null);
 	}
 

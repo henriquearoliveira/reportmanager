@@ -1,0 +1,39 @@
+package br.com.reportmanager.report.service;
+
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import br.com.reportmanager.report.Report;
+
+@Service
+public class ReportService {
+
+	public byte[] buildReport(Report report) {
+
+		configureParameters(report);
+
+		return report.getTypeFormat().download(report);
+	}
+
+	private void configureParameters(Report report) {
+
+		Map<String, Object> params = report.getParams();
+
+		params.forEach((k, v) -> {
+			
+			Long value = null;
+
+			try {
+				value = Long.parseLong(String.valueOf(v));
+			} catch (NumberFormatException e) {
+				return;
+			}
+			
+			v = value.intValue();
+
+		});
+
+	}
+
+}
