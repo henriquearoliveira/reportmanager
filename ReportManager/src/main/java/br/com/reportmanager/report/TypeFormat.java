@@ -1,6 +1,6 @@
 package br.com.reportmanager.report;
 
-import br.com.reportmanager.report.manager.ReportCSV;
+import br.com.reportmanager.report.manager.ReportHTML;
 import br.com.reportmanager.report.manager.ReportPDF;
 
 public enum TypeFormat implements ReportFormat {
@@ -17,7 +17,7 @@ public enum TypeFormat implements ReportFormat {
 
 		@Override
 		public byte[] download(Report report) {
-			return new ReportCSV().download(report);
+			return new ReportHTML().download(report);
 		}
 	};
 

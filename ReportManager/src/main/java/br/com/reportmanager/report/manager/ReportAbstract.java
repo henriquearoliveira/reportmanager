@@ -28,6 +28,14 @@ public class ReportAbstract {
 
 	private Report report;
 
+	protected void buildReport(Report report) {
+
+		downloadFilesFromFTP(report);
+
+		populateReport();
+
+	}
+
 	protected void downloadFilesFromFTP(Report report) {
 		this.report = report;
 
@@ -39,7 +47,7 @@ public class ReportAbstract {
 
 	}
 
-	protected void populateReport() {
+	private void populateReport() {
 
 		try (Connection connection = DriverManager.getConnection(report.getDatabase().getUrlConnection(),
 				report.getDatabase().getUsername(), report.getDatabase().getPassword());) {
@@ -59,7 +67,7 @@ public class ReportAbstract {
 		}
 	}
 
-	protected byte[] serializePDF(String exportedReportname) {
+	protected byte[] serialize(String exportedReportname) {
 
 		Path path = Paths.get(folderReports + exportedReportname);
 

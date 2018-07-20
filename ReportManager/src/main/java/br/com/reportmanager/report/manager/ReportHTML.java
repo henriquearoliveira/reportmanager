@@ -5,9 +5,9 @@ import br.com.reportmanager.report.ReportFormat;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 
-public class ReportPDF extends ReportAbstract implements ReportFormat {
+public class ReportHTML extends ReportAbstract implements ReportFormat {
 
-	private final String exportedReportname = "relatorio.pdf";
+	private final String exportedReportname = "relatorio.html";
 
 	@Override
 	public byte[] download(Report report) {
@@ -22,7 +22,7 @@ public class ReportPDF extends ReportAbstract implements ReportFormat {
 	private void genareteReport() {
 
 		try {
-			JasperExportManager.exportReportToPdfFile(print, folderReports + exportedReportname);
+			JasperExportManager.exportReportToHtmlFile(print, folderReports + exportedReportname);
 		} catch (JRException e1) {
 			e1.printStackTrace();
 		}
