@@ -14,13 +14,14 @@ import java.util.List;
 import br.com.reportmanager.report.Report;
 import br.com.reportmanager.report.components.Tools;
 import br.com.reportmanager.report.components.ftp.FTPRetrieveFile;
+import br.com.reportmanager.report.exceptions.OperacaoNaoPermitidaException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 public class ReportAbstract {
 
-	protected final String folderReports = "src/main/resources/reports/";
+	protected static final String folderReports = "src/main/resources/reports/";
 
 	protected JasperPrint print = null;
 
@@ -28,7 +29,15 @@ public class ReportAbstract {
 
 	private Report report;
 
-	protected void downloadFilesFromFTP(Report report) {
+	protected void buildReport(Report report) {
+
+		downloadFilesFromFTP(report);
+
+		populateReport();
+
+	}
+
+	private void downloadFilesFromFTP(Report report) {
 		this.report = report;
 
 		listReports = Arrays.asList(report.getFtp().getPathReports().getDescription());
@@ -39,7 +48,7 @@ public class ReportAbstract {
 
 	}
 
-	protected void populateReport() {
+	private void populateReport() {
 
 		try (Connection connection = DriverManager.getConnection(report.getDatabase().getUrlConnection(),
 				report.getDatabase().getUsername(), report.getDatabase().getPassword());) {
@@ -49,17 +58,15 @@ public class ReportAbstract {
 						folderReports + Tools.getLocalPath(Tools.getLocalPath(listReports.get(0))), report.getParams(),
 						connection);
 			} catch (JRException e) {
-				System.out.println("ERRO NO PREENCHIMENTO DO RELATÓRIO");
-				e.printStackTrace();
+				throw new OperacaoNaoPermitidaException("Did not possible to populate the report.");
 			}
 
 		} catch (SQLException e1) {
-			System.out.println("ERRO NA CONEXÃO");
-			e1.printStackTrace();
+			throw new OperacaoNaoPermitidaException("Connection error with database, please confirm the credentials.");
 		}
 	}
 
-	protected byte[] serializePDF(String exportedReportname) {
+	protected byte[] serialize(String exportedReportname) {
 
 		Path path = Paths.get(folderReports + exportedReportname);
 
@@ -68,8 +75,8 @@ public class ReportAbstract {
 		try {
 			bytes = Files.readAllBytes(path);
 		} catch (IOException e) {
-			System.out.println("ERRO EM TRANSOFRMAR O ARQUIVO PARA BYTES");
-			e.printStackTrace();
+			throw new OperacaoNaoPermitidaException(
+					"File does not exists, please confirm the parameters names and values.");
 		}
 
 		deleteFiles();
@@ -77,13 +84,21 @@ public class ReportAbstract {
 		return bytes;
 	}
 
-	private void deleteFiles() {
+	public static void deleteFiles() {
+
+		File file = new File(Paths.get(folderReports).toString());
+
+		if (!file.exists())
+			return;
+
 		try {
 			Files.walk(Paths.get(folderReports)).map(Path::toFile).forEach(File::delete);
 		} catch (IOException e) {
-			System.out.println("DEU RUIM NA EXCLUSÃO.");
 			e.printStackTrace();
+			throw new OperacaoNaoPermitidaException(
+					"Something goes wrong with the files' deleting, in some time the collector will erase the folder.");
 		}
+
 	}
 
 }

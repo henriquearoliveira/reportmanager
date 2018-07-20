@@ -1,0 +1,64 @@
+package br.com.reportmanager.report.handler;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import br.com.reportmanager.report.exceptions.AcessoNaoAutorizadoException;
+import br.com.reportmanager.report.exceptions.DetalheErro;
+import br.com.reportmanager.report.exceptions.EnderecoSemBairroException;
+import br.com.reportmanager.report.exceptions.OperacaoNaoPermitidaException;
+import br.com.reportmanager.report.exceptions.TipoDesconhecidoException;
+
+@ControllerAdvice
+public class ResourceExceptionHandler {
+
+	@ExceptionHandler(AcessoNaoAutorizadoException.class)
+	public ResponseEntity<DetalheErro> acessoNaoAutorizado(AcessoNaoAutorizadoException e, HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+
+	public ResponseEntity<DetalheErro> enderecoSemBairro(EnderecoSemBairroException e, HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(428l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED).body(erro);
+	}
+
+	@ExceptionHandler(OperacaoNaoPermitidaException.class)
+	public ResponseEntity<DetalheErro> operacaoNaoPermitida(OperacaoNaoPermitidaException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(403l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
+
+	@ExceptionHandler(TipoDesconhecidoException.class)
+	public ResponseEntity<DetalheErro> tipoDesconhecidoException(TipoDesconhecidoException e,
+			HttpServletRequest request) {
+
+		DetalheErro erro = new DetalheErro();
+		erro.setStatus(404l);
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTitulo(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+
+}

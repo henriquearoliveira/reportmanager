@@ -8,14 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.reportmanager.report.exceptions.AcessoNaoAutorizadoException;
-import br.com.reportmanager.report.exceptions.CidadeIndefinidaException;
 import br.com.reportmanager.report.exceptions.DetalheErro;
-import br.com.reportmanager.report.exceptions.EnderecoSemBairroException;
-import br.com.reportmanager.report.exceptions.GeocodingException;
-import br.com.reportmanager.report.exceptions.LocalizacaoInvalidaException;
-import br.com.reportmanager.report.exceptions.ObjetoComDependenciaException;
-import br.com.reportmanager.report.exceptions.ObjetoExistenteException;
-import br.com.reportmanager.report.exceptions.ObjetoInexistenteException;
 import br.com.reportmanager.report.exceptions.OperacaoNaoPermitidaException;
 import br.com.reportmanager.report.exceptions.TipoDesconhecidoException;
 
@@ -33,89 +26,9 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
 	}
 
-	@ExceptionHandler(CidadeIndefinidaException.class)
-	public ResponseEntity<DetalheErro> cidadeNaoSuportada(CidadeIndefinidaException e, HttpServletRequest request) {
-
-		DetalheErro erro = new DetalheErro();
-		erro.setStatus(423l);
-		erro.setTimestamp(System.currentTimeMillis());
-		erro.setTitulo(e.getMessage());
-
-		return ResponseEntity.status(HttpStatus.LOCKED).body(erro);
-	}
-
-	public ResponseEntity<DetalheErro> enderecoSemBairro(EnderecoSemBairroException e, HttpServletRequest request){
-		
-		DetalheErro erro = new DetalheErro();
-		erro.setStatus(428l);
-		erro.setTimestamp(System.currentTimeMillis());
-		erro.setTitulo(e.getMessage());
-
-		return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED).body(erro);
-	}
-	
-	@ExceptionHandler(ObjetoComDependenciaException.class)
-	public ResponseEntity<DetalheErro> objetoComDependenciaException(ObjetoComDependenciaException e,
-			HttpServletRequest request) {
-
-		DetalheErro erro = new DetalheErro();
-		erro.setStatus(403l);
-		erro.setTimestamp(System.currentTimeMillis());
-		erro.setTitulo(e.getMessage());
-
-		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
-	}
-	
-	@ExceptionHandler(GeocodingException.class)
-	public ResponseEntity<DetalheErro> geocoding(GeocodingException e,
-			HttpServletRequest request) {
-
-		DetalheErro erro = new DetalheErro();
-		erro.setStatus(403l);
-		erro.setTimestamp(System.currentTimeMillis());
-		erro.setTitulo(e.getMessage());
-
-		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
-	}
-	
-	@ExceptionHandler(LocalizacaoInvalidaException.class)
-	public ResponseEntity<DetalheErro> geocoding(LocalizacaoInvalidaException e,
-			HttpServletRequest request) {
-
-		DetalheErro erro = new DetalheErro();
-		erro.setStatus(403l);
-		erro.setTimestamp(System.currentTimeMillis());
-		erro.setTitulo(e.getMessage());
-
-		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
-	}
-
-	@ExceptionHandler(ObjetoExistenteException.class)
-	public ResponseEntity<DetalheErro> objetoExistenteException(ObjetoExistenteException e,
-			HttpServletRequest request) {
-
-		DetalheErro erro = new DetalheErro();
-		erro.setStatus(403l);
-		erro.setTimestamp(System.currentTimeMillis());
-		erro.setTitulo(e.getMessage());
-
-		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
-	}
-
-	@ExceptionHandler(ObjetoInexistenteException.class)
-	public ResponseEntity<DetalheErro> objetoInexistenteException(ObjetoInexistenteException e,
-			HttpServletRequest request) {
-
-		DetalheErro erro = new DetalheErro();
-		erro.setStatus(404l);
-		erro.setTimestamp(System.currentTimeMillis());
-		erro.setTitulo(e.getMessage());
-
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
-	}
-	
 	@ExceptionHandler(OperacaoNaoPermitidaException.class)
-	public ResponseEntity<DetalheErro> operacaoNaoPermitida(OperacaoNaoPermitidaException e, HttpServletRequest request) {
+	public ResponseEntity<DetalheErro> operacaoNaoPermitida(OperacaoNaoPermitidaException e,
+			HttpServletRequest request) {
 
 		DetalheErro erro = new DetalheErro();
 		erro.setStatus(403l);

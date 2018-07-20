@@ -3,3 +3,9 @@
 1532025912503	Delete element
 1532029716353	Rename local variable 'database'
 1532030367526	Delete element
+1532093901592	Rename type 'ReportPDF'
+1532093946193	Rename type 'ReportHTML'
+1532093954345	Rename type 'ReportCSV'
+1532093974729	Rename method 'serializePDF'
+1532094141742	Delete element
+1532094174312	Delete elements
