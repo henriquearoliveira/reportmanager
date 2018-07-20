@@ -37,9 +37,7 @@ public class ReportService {
 		});
 
 		Map<String, Object> parameters = params.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(), e -> (Long.parseLong(String.valueOf(e.getValue())))));
-		
-		System.out.println(parameters.get("idFluxoDeCaixa"));
+				.collect(Collectors.toMap(e -> e.getKey(), e -> ((Integer) e.getValue()).intValue()));
 
 		return parameters;
 	}

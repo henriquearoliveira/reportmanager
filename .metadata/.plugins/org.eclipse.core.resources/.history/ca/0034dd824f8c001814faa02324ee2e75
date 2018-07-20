@@ -8,8 +8,9 @@ import br.com.reportmanager.report.manager.ReportAbstract;
 @Component
 public class DeleteFiles {
 	
-	@Scheduled(fixedDelay = 1800000)
+	@Scheduled(fixedDelay = 60000)
 	public void deleteFiles() {
+		System.out.println("aqui");
 		ReportAbstract.deleteFiles();
 	}
 

@@ -86,7 +86,7 @@ public class ReportAbstract {
 
 	public static void deleteFiles() {
 
-		File file = new File(folderReports);
+		File file = new File(Paths.get(folderReports).toString());
 
 		if (!file.exists())
 			return;

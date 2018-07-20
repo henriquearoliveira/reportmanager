@@ -12,8 +12,8 @@ public class ReportService {
 
 	public byte[] buildReport(Report report) {
 
-		Map<String, Object> params = configureParameters(report);
-		report.setParams(params);
+		/*Map<String, Object> params = configureParameters(report);
+		report.setParams(params);*/
 
 		return report.getTypeFormat().download(report);
 	}
@@ -37,7 +37,7 @@ public class ReportService {
 		});
 
 		Map<String, Object> parameters = params.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(), e -> (Long.parseLong(String.valueOf(e.getValue())))));
+				.collect(Collectors.toMap(e -> e.getKey(), e -> ((Integer) e.getValue()).intValue()));
 		
 		System.out.println(parameters.get("idFluxoDeCaixa"));
 

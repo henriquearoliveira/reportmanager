@@ -12,13 +12,12 @@ public class ReportService {
 
 	public byte[] buildReport(Report report) {
 
-		Map<String, Object> params = configureParameters(report);
-		report.setParams(params);
+		configureParameters(report);
 
 		return report.getTypeFormat().download(report);
 	}
 
-	private Map<String, Object> configureParameters(Report report) {
+	private void configureParameters(Report report) {
 
 		Map<String, Object> params = report.getParams();
 
@@ -35,13 +34,9 @@ public class ReportService {
 			params.put(k, value.intValue());
 
 		});
-
-		Map<String, Object> parameters = params.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(), e -> (Long.parseLong(String.valueOf(e.getValue())))));
 		
-		System.out.println(parameters.get("idFluxoDeCaixa"));
+		params.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> ((Integer) e.getValue()).intValue()));
 
-		return parameters;
 	}
 
 }

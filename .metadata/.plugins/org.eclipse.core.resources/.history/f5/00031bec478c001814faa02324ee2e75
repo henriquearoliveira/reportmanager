@@ -1,0 +1,57 @@
+package br.com.reportmanager.report;
+
+import java.util.List;
+
+public class Report {
+
+	private Database database;
+
+	private FTP ftp;
+
+	private List<Parameter> parameters;
+
+	private TypeFormat typeFormat;
+
+	public Report(Database database, FTP ftp, List<Parameter> parameters) {
+		this.database = database;
+		this.ftp = ftp;
+		this.parameters = parameters;
+	}
+
+	public Report() {
+
+	}
+
+	public Database getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(Database database) {
+		this.database = database;
+	}
+
+	public FTP getFtp() {
+		return ftp;
+	}
+
+	public void setFtp(FTP ftp) {
+		this.ftp = ftp;
+	}
+
+	public List<Parameter> getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(List<Parameter> parameters) {
+		this.parameters = parameters;
+	}
+
+	public TypeFormat getTypeFormat() {
+		return typeFormat;
+	}
+
+	public void setTypeFormat(TypeFormat typeFormat) {
+		this.typeFormat = typeFormat;
+	}
+
+}

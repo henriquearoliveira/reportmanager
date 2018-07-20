@@ -1,0 +1,27 @@
+package br.com.reportmanager.report;
+
+import java.util.Map;
+
+public class Params {
+
+	private TypeParam typeParam;
+
+	private Map<String, Object> params;
+
+	public TypeParam getTypeParam() {
+		return typeParam;
+	}
+
+	public void setTypeParam(TypeParam typeParam) {
+		this.typeParam = typeParam;
+	}
+
+	public Map<String, Object> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, Object> params) {
+		this.params = params;
+	}
+
+}
